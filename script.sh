@@ -3,7 +3,10 @@ echo "updating the system"
 sudo apt update -y
 
 echo "installing utilities"
-sudo apt install zip unzip Nginx -y
+sudo apt install zip unzip -y
+
+echo "install nginx"
+sudo apt install nginx -y
 
 echo "cleanup document root"
 sudo rm -rf /var/www/html
