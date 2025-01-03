@@ -1,6 +1,5 @@
-# !/bin/bash
-
-echo "updating the syatem"
+#!/bin/bash
+echo "updating the system"
 sudo apt update -y
 
 echo "installing utilities"
