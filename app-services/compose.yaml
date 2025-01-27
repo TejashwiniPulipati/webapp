@@ -1,0 +1,25 @@
+services:
+  service1:
+    image: nginx
+    ports:
+      - "8080:80"
+  service2:
+    image: httpd
+    ports:
+      - "8081:80"
+  service3:
+    image: pulipatitejashwini/webapp
+    ports:
+      - "8082:80"
+  service4:
+    build: ./ecomm
+    image: pulipatitejashwini/ecomm
+    ports:
+      - "8083:80" 
+  service5:
+    image: nginx
+    ports: 
+      - "8084:80"
+    volumes:
+      - /home/ubuntu/app-services/food:/usr/share/nginx/html
+
