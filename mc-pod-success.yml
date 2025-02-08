@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mc-pod
+  name: mc-pod-success
 spec:
   containers:
   - image: nginx
