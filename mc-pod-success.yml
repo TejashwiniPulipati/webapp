@@ -8,7 +8,9 @@ spec:
     name: nginx-1
     ports:
     - containerPort: 80
-  - name: ubuntu
-    image: ubuntu
-    command: ["echo"]
-    args: ["Hello World"]
+  - name: node-api
+    image: ravi2krishna/nodejs-api
+    ports:
+    - containerPort: 8080
+
+   
