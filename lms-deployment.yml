@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: pulipatitejashwini/lms-be
+          image: ravi2krishna/lms-be
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -113,7 +113,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: pulipatitejashwini/lms-fe
+          image: ravi2krishna/lms-fe
           imagePullPolicy: Always
           ports:
             - containerPort: 80
