@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: ravi2krishna/lms-be
+          image: pulipatitejashwini/lms-be
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -94,6 +94,44 @@ spec:
   - port: 3000
   selector:
     app: lms-be
+
+---
+# lms-frontend deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-fe
+  template:
+    metadata:
+      labels:
+        app: lms-fe
+    spec:
+      containers:
+        - name: frontend-container
+          image: pulipatitejashwini/lms-fe
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+
+---
+#cat fe-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: lms-fe-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: lms-fe
+
+
 
 
 
