@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+---
+# db postgres service 
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-cluster-ip-service
+spec:
+  type: ClusterIP # Optional
+  selector:
+    component: postgres
+  ports:
+    - port: 5432
+
+---
+# backend-configmap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config-map
+data:
+  DB_HOST: postgres-cluster-ip-service
+  DB_PORT: "5432"
+  DB_USER: postgres
+  DB_NAME: postgres
+  PORT: "3000"
+  MODE: production
+
+---
+
+
+
