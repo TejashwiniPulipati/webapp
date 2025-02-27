@@ -51,6 +51,53 @@ data:
   MODE: production
 
 ---
+# backend deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-be
+  template:
+    metadata:
+      labels:
+        app: lms-be
+    spec:
+      containers:
+        - name: backend-container
+          image: ravi2krishna/lms-be
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: backend-config-map
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+                
+---
+# be-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: lms-be-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3000
+  selector:
+    app: lms-be
+
+
+
+
 
 
 
