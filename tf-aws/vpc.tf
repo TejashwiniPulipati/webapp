@@ -62,14 +62,3 @@ resource "aws_route_table" "lms-pub-rt" {
   }
 }
 
-# web-subnet-association
-resource "aws_route_table_association" "web-sn-asc" {
-  subnet_id      = aws_subnet.lms-web-sn.id
-  route_table_id = aws_route_table.lms-pub-rt.id
-}
-
-# api-subnet-association
-resource "aws_route_table_association" "api-sn-asc" {
-  subnet_id      = aws_subnet.lms-api-sn.id
-  route_table_id = aws_route_table.lms-pub-rt.id
-}
