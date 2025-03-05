@@ -41,3 +41,11 @@ resource "aws_subnet" "lms-db-sn" {
   }
 }
 
+# internet-gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.lms-vpc.id
+
+  tags = {
+    Name = "lms-igw"
+  }
+}
