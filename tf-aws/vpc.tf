@@ -201,3 +201,37 @@ resource "aws_security_group" "lms-api-sg" {
     Name = "lms-api-sg"
   }
 }
+
+# db-security-group
+resource "aws_security_group" "lms-db-sg" {
+  name        = "lms-db-sg"
+  description = "Allow database traffic"
+  vpc_id      = aws_vpc.lms-vpc.id
+
+  ingress {
+    description = "ssh-rule"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "http-rule"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "lms-db-sg"
+  }
+}
