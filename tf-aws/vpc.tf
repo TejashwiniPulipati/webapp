@@ -235,3 +235,16 @@ resource "aws_security_group" "lms-db-sg" {
     Name = "lms-db-sg"
   }
 }
+
+# EC2-instance
+resource "aws_instance" "lms-web-server" {
+  ami           = "ami-06cff85354b67982b"
+  instance_type = "t2.micro"
+  key_name      = "awskey"
+  subnet_id     = aws_subnet.lms-web-sn.id
+  vpc_security_group_ids = [aws_security_group.lms-web-sg.id]
+
+  tags = {
+    Name = "lms-web-server"
+  }
+}
