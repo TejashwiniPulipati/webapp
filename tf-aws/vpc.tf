@@ -74,3 +74,18 @@ resource "aws_route_table_association" "api-sn-asc" {
   route_table_id = aws_route_table.lms-pub-rt.id
 }
 
+# private-route-table
+resource "aws_route_table" "lms-pvt-rt" {
+  vpc_id = aws_vpc.lms-vpc.id
+  
+  tags = {
+    Name = "lms-pvt-rt"
+  }
+}
+
+# db-subnet-association
+resource "aws_route_table_association" "db-sn-asc" {
+  subnet_id      = aws_subnet.lms-db-sn.id
+  route_table_id = aws_route_table.lms-pvt-rt.id
+}
+
