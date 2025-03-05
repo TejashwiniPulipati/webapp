@@ -133,3 +133,35 @@ resource "aws_network_acl_association" "db-nacl-asc" {
   network_acl_id = aws_network_acl.lms-nacl.id
   subnet_id      = aws_subnet.lms-db-sn.id
 }
+
+# web-security-group
+resource "aws_security_group" "lms-web-sg" {
+  name        = "lms-web-sg"
+  description = "Allow web traffic"
+  vpc_id      = aws_vpc.lms-vpc.id
+
+  ingress {
+    description = "ssh-rule"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = "0.0.0.0/0"
+  }
+
+  ingress {
+    description = "http-rule"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = "0.0.0.0/0"
+  }
+
+  egress {
+    protocol    = "-1"
+    cidr_blocks = "0.0.0.0/0"
+  }
+
+  tags = {
+    Name = "lms-web-sg"
+  }
+}
